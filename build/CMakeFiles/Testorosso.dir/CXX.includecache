@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../Include/Testorosso/Testorosso.h
+string_view
+-
+vector
+-
+
+/home/jool/dev/git/Testorosso/Src/Testorosso.cpp
+iostream
+-
+Testorosso.h
+/home/jool/dev/git/Testorosso/Src/Testorosso.h
+

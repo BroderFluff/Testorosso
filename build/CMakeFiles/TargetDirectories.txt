@@ -1,0 +1,7 @@
+/home/jool/dev/git/Testorosso/build/CMakeFiles/install/strip.dir
+/home/jool/dev/git/Testorosso/build/CMakeFiles/edit_cache.dir
+/home/jool/dev/git/Testorosso/build/CMakeFiles/Testorosso.dir
+/home/jool/dev/git/Testorosso/build/CMakeFiles/rebuild_cache.dir
+/home/jool/dev/git/Testorosso/build/CMakeFiles/list_install_components.dir
+/home/jool/dev/git/Testorosso/build/CMakeFiles/install/local.dir
+/home/jool/dev/git/Testorosso/build/CMakeFiles/install.dir
