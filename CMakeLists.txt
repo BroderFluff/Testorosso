@@ -16,6 +16,7 @@ add_library(Testorosso STATIC
 target_include_directories(Testorosso
     PRIVATE
         Include/Testorosso/
+        ${CMAKE_CURRENT_BINARY_DIR}
 )
 
 target_compile_options(Testorosso
@@ -48,10 +49,15 @@ target_link_options(Testorosso
         >
 )
 
-set(MAJOR_VERSION 0)
-set(MINOR_VERSION 1)
+execute_process(
+    COMMAND git describe --tags --long OUTPUT_VARIABLE VERSION)
 
-configure_file(Config.h.in Config.h @ONLY)
+message("VERSION: ${VERSION}")
+
+set(MAJOR_VERSION 0)
+set(MINOR_VERSION 2)
+
+configure_file(Version.h.in Version.h @ONLY)
 
 install(
     TARGETS

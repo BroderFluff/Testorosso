@@ -1,0 +1,9 @@
+#pragma once
+#ifndef CONFIG_H__
+#define CONFIG_H__
+
+constexpr inline int majorVersion = @MAJOR_VERSION@
+constexpr inline int minorVersion = @MINOR_VERSION@
+
+#endif // CONFIG_H__
+

@@ -1,0 +1,2 @@
+/usr/bin/ar qc lib/libTestorosso.a  CMakeFiles/Testorosso.dir/Src/Testorosso.cpp.o
+/usr/bin/ranlib lib/libTestorosso.a
