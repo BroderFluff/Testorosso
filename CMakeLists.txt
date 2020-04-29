@@ -9,9 +9,10 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-add_library(Testorosso STATIC
-    Src/Testorosso.cpp
-    Include/Testorosso/Testorosso.h)
+add_library(Testorosso
+    STATIC
+        Src/Testorosso.cpp
+        Include/Testorosso/Testorosso.h)
 
 target_include_directories(Testorosso
     PRIVATE
@@ -48,9 +49,7 @@ target_link_options(Testorosso
         >
 )
 
-install(
-    TARGETS
-        Testorosso
-    DESTINATION
-        lib
-)
+install(TARGETS Testorosso DESTINATION lib)
+install(DIRECTORY Include/Testorosso/ DESTINATION include/Testorosso
+    FILES_MATCHING PATTERN "*.h")
+#install(EXPORT Testorosso DESTINATION Testorosso)
