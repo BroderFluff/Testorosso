@@ -17,6 +17,7 @@ add_library(Testorosso
 target_include_directories(Testorosso
     PRIVATE
         Include/Testorosso/
+        ${CMAKE_CURRENT_BINARY_DIR}
 )
 
 target_compile_options(Testorosso
@@ -53,3 +54,27 @@ install(TARGETS Testorosso DESTINATION lib)
 install(DIRECTORY Include/Testorosso/ DESTINATION include/Testorosso
     FILES_MATCHING PATTERN "*.h")
 #install(EXPORT Testorosso DESTINATION Testorosso)
+execute_process(
+    COMMAND 
+        git describe --tags --long 
+    OUTPUT_VARIABLE VERSION
+)
+
+message("VERSION: ${VERSION}")
+
+string(REGEX MATCH "v[0-9]+\.[0-9]+" MAJOR_VERSION MINOR_VERSION ${VERSION})
+
+message("MAJOR_VERSION: ${MAJOR_VERSION}")
+message("MINOR_VERSION: ${MINOR_VERSION}")
+
+#set(MAJOR_VERSION 0)
+#set(MINOR_VERSION 2)
+
+configure_file(Version.h.in Version.h @ONLY)
+
+install(
+    TARGETS
+        Testorosso
+    DESTINATION
+        lib
+)
