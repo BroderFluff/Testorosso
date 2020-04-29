@@ -48,6 +48,11 @@ target_link_options(Testorosso
         >
 )
 
+set(MAJOR_VERSION 0)
+set(MINOR_VERSION 1)
+
+configure_file(Config.h.in Config.h @ONLY)
+
 install(
     TARGETS
         Testorosso
