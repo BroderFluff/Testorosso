@@ -57,18 +57,23 @@ install(DIRECTORY Include/Testorosso/ DESTINATION include/Testorosso
 execute_process(
     COMMAND 
         git describe --tags --long 
-    OUTPUT_VARIABLE VERSION
+    OUTPUT_VARIABLE
+        BUILD_VERSION
 )
 
-message("VERSION: ${VERSION}")
+message("BUILD_VERSION: ${BUILD_VERSION}")
 
-string(REGEX MATCH "v[0-9]+\.[0-9]+" MAJOR_VERSION MINOR_VERSION ${VERSION})
+string(REGEX REPLACE "^v" "" BUILD_VERSION ${BUILD_VERSION})
+string(REGEX MATCH "^([0-9]+)" MAJOR_VERSION ${BUILD_VERSION})
+string(REGEX REPLACE "${MAJOR_VERSION}\\." "" BUILD_VERSION ${BUILD_VERSION})
+string(REGEX MATCH "^([0-9]+)" MINOR_VERSION ${BUILD_VERSION})
+string(REGEX REPLACE "${MINOR_VERSION}\\-" "" BUILD_VERSION ${BUILD_VERSION})
+string(REGEX MATCH "^([0-9]+)" PATCH ${BUILD_VERSION})
+
 
 message("MAJOR_VERSION: ${MAJOR_VERSION}")
 message("MINOR_VERSION: ${MINOR_VERSION}")
-
-#set(MAJOR_VERSION 0)
-#set(MINOR_VERSION 2)
+message("PATCH: ${PATCH}")
 
 configure_file(Version.h.in Version.h @ONLY)
 
