@@ -9,11 +9,29 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-add_executable(Testorosso Src/Testorosso.cpp)
-#add_library(Testorosso
-    #STATIC
-        #Src/Testorosso.cpp
-        #Include/Testorosso/Testorosso.h)
+include(Tools/CMake/GenVersion.cmake)
+
+set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for libraries")
+set(INSTALL_INCLUDE_DIR include CACHE PATH "Installation directory for header files")
+if(WIN32 AND NOT CYGWIN)
+    set(DEF_INSTALL_CMAKE_DIR CMake)
+else()
+    set(DEF_INSTALL_CMAKE_DIR lib/CMake/Testorosso)
+endif()
+set(INSTALL_CMAKE_DIR ${DEF_INSTALL_CMAKE_DIR} CACHE PATH "Installation directory for CMake files")
+
+foreach(p LIB BIN INCLUDE CMAKE)
+    set(var INSTALL_${p}_DIR)
+    if(NOT IS_ABSOLUTE "${${var}}")
+        set(${var} "${CMAKE_INSTALL_PREFIX}/${${var}}")
+    endif()
+endforeach()
+
+#add_executable(Testorosso Src/Testorosso.cpp)
+add_library(Testorosso
+    STATIC
+        Src/Testorosso.cpp
+        Include/Testorosso/Testorosso.h)
 
 target_include_directories(Testorosso
     PRIVATE
@@ -51,16 +69,22 @@ target_link_options(Testorosso
         >
 )
 
+export(TARGETS Testorosso FILE "${PROJECT_BINARY_DIR}/TestorossoTargets.cmake")
+
+export(PACKAGE Testorosso)
+
+file(RELATIVE_PATH REL_INCLUDE_DIR "${INSTALL_CMAKE_DIR}" "${INSTALL_INCLUDE_DIR}")
+set(CONF_INCLUDE_DIRS "${PROJECT_SOURCE_DIR}" "${PROJECT_BINARY_DIR}")
+configure_file(TestorossoConfig.cmake.in "${PROJECT_BINARY_DIR}/TestorossoConfig.cmake" @ONLY)
+
 install(TARGETS Testorosso DESTINATION lib)
 install(DIRECTORY Include/Testorosso/ DESTINATION include/Testorosso
     FILES_MATCHING PATTERN "*.h")
 
-include(Tools/CMake/GenVersion.cmake)
 
-
-install(
-    TARGETS
-        Testorosso
-    DESTINATION
-        lib
-)
+#install(
+    #TARGETS
+        #Testorosso
+    #DESTINATION
+        #lib
+#)
