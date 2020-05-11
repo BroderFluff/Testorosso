@@ -7,7 +7,7 @@ execute_process(
         BUILD_VERSION
 )
 
-message("BUILD_VERSION: ${BUILD_VERSION}")
+#message("BUILD_VERSION: ${BUILD_VERSION}")
 string(STRIP "${BUILD_VERSION}" VERSION)
 
 string(REGEX REPLACE "^v" "" BUILD_VERSION ${BUILD_VERSION})
@@ -19,10 +19,10 @@ string(REGEX MATCH "^([0-9]+)" NUM_COMMITS ${BUILD_VERSION})
 string(REGEX REPLACE "^${NUM_COMMITS}\\-" "" COMMIT_HASH ${BUILD_VERSION})
 string(STRIP "${COMMIT_HASH}" COMMIT_HASH)
 
-message("VERSION: ${VERSION}")
-message("MAJOR_VERSION: ${MAJOR_VERSION}")
-message("MINOR_VERSION: ${MINOR_VERSION}")
-message("NUM_COMMITS: ${NUM_COMMITS}")
-message("COMMIT_HASH: ${COMMIT_HASH}")
+#message("VERSION: ${VERSION}")
+#message("MAJOR_VERSION: ${MAJOR_VERSION}")
+#message("MINOR_VERSION: ${MINOR_VERSION}")
+#message("NUM_COMMITS: ${NUM_COMMITS}")
+#message("COMMIT_HASH: ${COMMIT_HASH}")
 
 configure_file(Version.h.in Version.h @ONLY)
