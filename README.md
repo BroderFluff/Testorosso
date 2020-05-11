@@ -2,9 +2,7 @@
 
 Build instructions:
 ```
-# mkdir -p build/
-# cd build/
-# cmake ..
-# make
-# sudo make install
+# ./Config.sh
+# make -C build/
+# sudo make -C build/ install
 ```
