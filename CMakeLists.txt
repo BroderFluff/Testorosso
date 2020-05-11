@@ -20,7 +20,7 @@ else()
 endif()
 set(INSTALL_CMAKE_DIR ${DEF_INSTALL_CMAKE_DIR} CACHE PATH "Installation directory for CMake files")
 
-foreach(p LIB BIN INCLUDE CMAKE)
+foreach(p LIB INCLUDE CMAKE)
     set(var INSTALL_${p}_DIR)
     if(NOT IS_ABSOLUTE "${${var}}")
         set(${var} "${CMAKE_INSTALL_PREFIX}/${${var}}")
@@ -70,21 +70,25 @@ target_link_options(Testorosso
 )
 
 export(TARGETS Testorosso FILE "${PROJECT_BINARY_DIR}/TestorossoTargets.cmake")
-
 export(PACKAGE Testorosso)
 
+# Create the TestorossoConfig.cmake file
 file(RELATIVE_PATH REL_INCLUDE_DIR "${INSTALL_CMAKE_DIR}" "${INSTALL_INCLUDE_DIR}")
+# ... for the build tree
 set(CONF_INCLUDE_DIRS "${PROJECT_SOURCE_DIR}" "${PROJECT_BINARY_DIR}")
 configure_file(TestorossoConfig.cmake.in "${PROJECT_BINARY_DIR}/TestorossoConfig.cmake" @ONLY)
+# ... for the install tree
+set(CONF_INCLUDE_DIRS "\${TESTOROSSO_CMAKE_DIR}/${REL_INCLUDE_DIR}")
+configure_file(TestorossoConfig.cmake.in
+    "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/TestorossoConfig.cmake" @ONLY)
+# ... for both
+
+install(FILES
+    "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/TestorossoConfig.cmake"
+    DESTINATION "${INSTALL_CMAKE_DIR}" COMPONENT dev)
 
 install(TARGETS Testorosso DESTINATION lib)
 install(DIRECTORY Include/Testorosso/ DESTINATION include/Testorosso
     FILES_MATCHING PATTERN "*.h")
 
-
-#install(
-    #TARGETS
-        #Testorosso
-    #DESTINATION
-        #lib
-#)
+#install(EXPORT TestorossoTargets DESTINATION "${INSTALL_CMAKE_DIR}" COMPONENT dev)
