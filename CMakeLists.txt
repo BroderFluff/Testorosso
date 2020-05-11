@@ -82,13 +82,16 @@ set(CONF_INCLUDE_DIRS "\${TESTOROSSO_CMAKE_DIR}/${REL_INCLUDE_DIR}")
 configure_file(TestorossoConfig.cmake.in
     "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/TestorossoConfig.cmake" @ONLY)
 # ... for both
+configure_file(TestorossoConfigVersion.cmake.in "${PROJECT_BINARY_DIR}/TestorossoConfigVersion.cmake" @ONLY)
 
 install(FILES
     "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/TestorossoConfig.cmake"
+    "${PROJECT_BINARY_DIR}/TestorossoConfigVersion.cmake"
     DESTINATION "${INSTALL_CMAKE_DIR}" COMPONENT dev)
 
-install(TARGETS Testorosso DESTINATION lib)
+install(TARGETS Testorosso
+    EXPORT TestorossoTargets DESTINATION lib)
 install(DIRECTORY Include/Testorosso/ DESTINATION include/Testorosso
     FILES_MATCHING PATTERN "*.h")
 
-#install(EXPORT TestorossoTargets DESTINATION "${INSTALL_CMAKE_DIR}" COMPONENT dev)
+install(EXPORT TestorossoTargets DESTINATION "${INSTALL_CMAKE_DIR}" COMPONENT dev)
