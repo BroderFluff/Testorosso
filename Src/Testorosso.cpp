@@ -3,6 +3,7 @@
 #include "Testorosso.h"
 
 int main(int argc, char *argv[]) {
+    std::cout << "Testorosso " << version << '\n';
     try {
         for (auto it: testorosso::funcs) {
             (*it).operator()();

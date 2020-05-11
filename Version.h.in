@@ -2,8 +2,17 @@
 #ifndef CONFIG_H__
 #define CONFIG_H__
 
-constexpr inline int majorVersion = @MAJOR_VERSION@;
-constexpr inline int minorVersion = @MINOR_VERSION@;
+#define VERSION "@VERSION@"
+#define MAJOR_VERSION @MAJOR_VERSION@u
+#define MINOR_VERSION @MINOR_VERSION@u
+#define NUM_COMMITS @NUM_COMMITS@u
+#define COMMIT_HASH "@COMMIT_HASH@"
+
+constexpr inline auto version { VERSION };
+constexpr inline auto majorVersion { MAJOR_VERSION };
+constexpr inline auto minorVersion { MINOR_VERSION };
+constexpr inline auto numCommits { NUM_COMMITS };
+constexpr inline auto *commitHash { COMMIT_HASH };
 
 #endif // CONFIG_H__
 

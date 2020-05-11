@@ -9,10 +9,11 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-add_library(Testorosso
-    STATIC
-        Src/Testorosso.cpp
-        Include/Testorosso/Testorosso.h)
+add_executable(Testorosso Src/Testorosso.cpp)
+#add_library(Testorosso
+    #STATIC
+        #Src/Testorosso.cpp
+        #Include/Testorosso/Testorosso.h)
 
 target_include_directories(Testorosso
     PRIVATE
@@ -53,28 +54,9 @@ target_link_options(Testorosso
 install(TARGETS Testorosso DESTINATION lib)
 install(DIRECTORY Include/Testorosso/ DESTINATION include/Testorosso
     FILES_MATCHING PATTERN "*.h")
-#install(EXPORT Testorosso DESTINATION Testorosso)
-execute_process(
-    COMMAND 
-        git describe --tags --long 
-    OUTPUT_VARIABLE
-        BUILD_VERSION
-)
 
-message("BUILD_VERSION: ${BUILD_VERSION}")
+include(Tools/CMake/GenVersion.cmake)
 
-string(REGEX REPLACE "^v" "" BUILD_VERSION ${BUILD_VERSION})
-string(REGEX MATCH "^([0-9]+)" MAJOR_VERSION ${BUILD_VERSION})
-string(REGEX REPLACE "${MAJOR_VERSION}\\." "" BUILD_VERSION ${BUILD_VERSION})
-string(REGEX MATCH "^([0-9]+)" MINOR_VERSION ${BUILD_VERSION})
-string(REGEX REPLACE "${MINOR_VERSION}\\-" "" BUILD_VERSION ${BUILD_VERSION})
-string(REGEX MATCH "^([0-9]+)" PATCH ${BUILD_VERSION})
-
-message("MAJOR_VERSION: ${MAJOR_VERSION}")
-message("MINOR_VERSION: ${MINOR_VERSION}")
-message("PATCH: ${PATCH}")
-
-configure_file(Version.h.in Version.h @ONLY)
 
 install(
     TARGETS
