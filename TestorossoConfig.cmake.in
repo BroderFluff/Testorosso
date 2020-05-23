@@ -3,7 +3,7 @@
 #  TESTOROSSO_INCLUDE_DIRS - include directories for Testorosso
 #  TESTOROSSO_LIBRARIES    - libraries to link against
 
-get_filename_component(TESTOROSSO_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+get_filename_component(TESTOROSSO_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" DIRECTORY)
 set(TESTOROSSO_INCLUDE_DIRS "@CONF_INCLUDE_DIRS@")
 
 if(NOT TARGET Testorosso AND NOT Testorosso_BINARY_DIR)
